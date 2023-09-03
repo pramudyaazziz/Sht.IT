@@ -20,3 +20,19 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('auth.login', ['title' => 'Login']);
 })->name('login');
+
+Route::get('/register', function () {
+    return view('auth.register', ['title' => 'Register']);
+})->name('register');
+
+Route::get('/my-url', function () {
+    return view('recent-url', ['title' => 'My URL']);
+})->name('my.url');
+
+Route::get('/my-url', function () {
+    return view('recent-url', ['title' => 'My URL']);
+})->name('my.url');
+
+Route::get('/stats', function () {
+    return view('stats-url', ['title' => 'Stats URL']);
+});
