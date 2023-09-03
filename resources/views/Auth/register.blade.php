@@ -1,7 +1,7 @@
 @extends('layouts.index')
 @section('title') {{ $title }} @endsection
 @section('content')
-<div class="p-3 d-flex gap-4 flex-column align-items-center justify-content-center h-100">
+<div class="p-3 row gap-4 flex-column align-items-center justify-content-center h-100">
     <h3 class="text-center">Register</h3>
     <form class="col-lg-4 col-md-6 bg-white p-3">
         <div class="mb-3">
@@ -18,7 +18,7 @@
         </div>
         <button type="submit" class="py-1 px-5 mx-auto d-block">Register</button>
     </form>
-    <p class="text-muted">Already have account? <a href="{{route('login')}}">login</a></p>
+    <p class="text-center text-muted">Already have account? <a href="{{route('login')}}">login</a></p>
 </div>
 @endsection
 
