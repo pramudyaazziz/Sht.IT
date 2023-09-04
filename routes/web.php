@@ -32,3 +32,7 @@ Route::get('/my-url', function () {
 Route::get('/stats', function () {
     return view('stats-url', ['title' => 'Stats URL']);
 })->name('stats');
+
+Route::get('/change-url', function () {
+    return view('change-url', ['title' => 'Change URL']);
+})->name('change.url');
