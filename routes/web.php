@@ -29,10 +29,6 @@ Route::get('/my-url', function () {
     return view('recent-url', ['title' => 'My URL']);
 })->name('my.url');
 
-Route::get('/my-url', function () {
-    return view('recent-url', ['title' => 'My URL']);
-})->name('my.url');
-
 Route::get('/stats', function () {
     return view('stats-url', ['title' => 'Stats URL']);
-});
+})->name('stats');
