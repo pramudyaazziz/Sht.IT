@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'year' => env('YEAR', '2000'),
-    'domain' => env('APP_DOMAIN', 'pramarda.my.id'),
+    'year' => env('APP_YEAR', 'year'),
+    'domain' => env('APP_DOMAIN', 'your_domain'),
 ];
