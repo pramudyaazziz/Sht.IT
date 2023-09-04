@@ -28,7 +28,7 @@
         h3 {
             color: var(--primary);
             font-weight: 600;
-            font-size: 2rem;
+            font-size: 1.8rem
         }
         button {
             background-color: var(--primary);
