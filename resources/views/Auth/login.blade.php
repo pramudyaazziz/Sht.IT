@@ -8,6 +8,11 @@
             @error('auth')
                 <p class="text-center text-danger m-0 p-0 pb-3 py-2">{{ $message }}</p>
             @enderror
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="mb-3">
                 <label class="form-label">Email</label>
                 <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{old('email')}}">

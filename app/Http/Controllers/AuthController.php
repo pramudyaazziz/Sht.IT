@@ -41,4 +41,28 @@ class AuthController extends Controller
 
         return redirect()->back()->withErrors(['auth' => 'Login failed due invalid credentials.'])->withInput();
     }
+
+    /**
+     * This method is used to display the register page
+     */
+    public function showRegister(): View
+    {
+        return view('auth.register', [
+            'title' => 'Register'
+        ]);
+    }
+
+    /**
+     * This method is used for handle register process
+     */
+    public function register(RegisterRequest $request): RedirectResponse
+    {
+        $user = $this->userService->register($request->except(['_token', 'password_confirmation']));
+
+        if ($user) {
+            return redirect()->route('login')->withSuccess('Registration is successful, you can login now');
+        }
+
+        return redirect()->back()->withErrors(['register' => 'Email already registered'])->withInput();
+    }
 }

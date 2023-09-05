@@ -23,4 +23,23 @@ class UserServiceImplement extends Service implements UserService{
     {
         return Auth::attempt($data);
     }
+
+    public function register(array $data)
+    {
+        $user = $this->mainRepository->findByEmail($data['email']);
+
+        // Check var $user if empty, do create user
+        if(empty($user))
+        {
+            $user = (array) [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ];
+
+            return $this->mainRepository->create($user);
+        }
+
+        return false;
+    }
 }

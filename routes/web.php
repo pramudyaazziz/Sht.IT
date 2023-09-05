@@ -22,9 +22,9 @@ Route::get('/', function () {
 //     return view('auth.login', ['title' => 'Login']);
 // })->name('login');
 
-Route::get('/register', function () {
-    return view('auth.register', ['title' => 'Register']);
-})->name('register');
+// Route::get('/register', function () {
+//     return view('auth.register', ['title' => 'Register']);
+// })->name('register');
 
 Route::get('/my-url', function () {
     return view('recent-url', ['title' => 'My URL']);
@@ -41,4 +41,6 @@ Route::get('/change-url', function () {
 Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'auth'])->name('auth');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class,'register'])->name('register.process');
 });
