@@ -6,9 +6,8 @@
             <h3>Welcome back</h3>
             <div class="my-3 d-flex justify-content-between align-items-center">
                 <h5 class="text-muted">Bambang</h5>
-                <form action="" method="POST" class="logout">
+                <form action="{{route('logout')}}" method="POST" class="logout">
                     @csrf
-                    @method('DELETE')
                     <button class="btn btn-danger" type="submit">Logout</button>
                 </form>
             </div>

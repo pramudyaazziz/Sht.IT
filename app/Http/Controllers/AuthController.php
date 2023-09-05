@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Services\User\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -64,5 +65,19 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->withErrors(['register' => 'Email already registered'])->withInput();
+    }
+
+    /**
+     * This method is used for logout process
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        $logout = $this->userService->logout($request);
+
+        if ($logout) {
+            return redirect()->route('login');
+        }
+
+        return redirect()->route('home');
     }
 }
