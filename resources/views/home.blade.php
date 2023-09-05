@@ -3,7 +3,16 @@
 @section('content')
     <div class="h-100 row align-items-center justify-content-lg-start justify-content-center">
         <div class="col-lg-5 col-md-7">
-            <form class="bg-white p-3">
+            <h3>Welcome back</h3>
+            <div class="my-3 d-flex justify-content-between align-items-center">
+                <h5 class="text-muted">Bambang</h5>
+                <form action="" method="POST" class="logout">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
+            </div>
+            <form class="bg-white p-3 url-shortener">
                 <div class="mb-3">
                     <label class="form-label d-flex align-items-center">
                         <div class="double-link d-flex align-items-center me-3">
@@ -44,6 +53,14 @@
 @endsection
 @push('css')
     <style>
+        h3 {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        .btn-danger {
+            background-color: rgb(229, 13, 13);
+        }
         .double-link {
             width: 40px;
             height: 40px;
@@ -79,7 +96,7 @@
             font-size: 1rem;
             font-weight: 500;
         }
-        form {
+        form.url-shortener {
             box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
             border-radius: .5rem;
         }
