@@ -3,14 +3,24 @@
 @section('content')
     <div class="p-3 row gap-4 flex-column align-items-center justify-content-center h-100">
         <h3 class="text-center">Login</h3>
-        <form class="col-lg-4 col-md-6 bg-white p-3">
+        <form class="col-lg-4 col-md-6 bg-white p-3" action="{{route('auth')}}" method="POST">
+            @csrf
+            @error('auth')
+                <p class="text-center text-danger m-0 p-0 pb-3 py-2">{{ $message }}</p>
+            @enderror
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="Email" aria-describedby="emailHelp">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{old('email')}}">
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control"  placeholder="Password">
+                <label  class="form-label">Password</label>
+                <input type="password" class="form-control @error('password') is-invalid @enderror"  placeholder="Password" name="password">
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="py-1 px-5 mx-auto d-block">Login</button>
         </form>
