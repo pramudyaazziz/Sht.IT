@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UrlRequest;
 use App\Models\Url;
 use App\Services\Url\UrlService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UrlController extends Controller
@@ -19,9 +21,12 @@ class UrlController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('recent-url', [
+            'title' => 'My URL',
+            'urls' => $this->urlService->getAllUrlUser(auth()->user()->id),
+        ]);
     }
 
     /**
@@ -35,10 +40,10 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UrlRequest $request)
+    public function store(UrlRequest $request): RedirectResponse
     {
         $url = $this->urlService->create($request->except('_token'));
-        
+
         if ($url) {
             return redirect()->back()->with('result', $url->slug);
         }

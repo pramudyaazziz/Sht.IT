@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/url/store', [UrlController::class, 'store'])->name('short.url');
 
-Route::get('/my-url', function () {
-    return view('recent-url', ['title' => 'My URL']);
-})->name('my.url');
+// Route::get('/my-url', function () {
+//     return view('recent-url', ['title' => 'My URL']);
+// })->name('my.url');
 
 Route::get('/stats', function () {
     return view('stats-url', ['title' => 'Stats URL']);
@@ -49,5 +49,5 @@ Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/url', UrlController::class)->except('create', 'store');
+    Route::resource('/my-url', UrlController::class)->except('create', 'store');
 });

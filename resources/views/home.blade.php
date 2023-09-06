@@ -53,7 +53,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     @if ($user)
-                        <a href="{{route('my.url')}}" class="my-url fs-5">My URL</a>
+                        <a href="{{route('my-url.index')}}" class="my-url fs-5">My URL</a>
                     @else
                         <a href="{{route('login')}}" class="my-url fs-5">Login</a>
                     @endif

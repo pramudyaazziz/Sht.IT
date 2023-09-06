@@ -26,7 +26,7 @@ class UrlServiceImplement extends Service implements UrlService{
 
         if (isset($data['slug'])) // user input alias url
         {
-            $slug = $data['slug'];
+            $slug = Str::slug($data['slug']);
         }
         else // user make random alias url
         {
@@ -47,6 +47,11 @@ class UrlServiceImplement extends Service implements UrlService{
         ];
 
         return $this->mainRepository->create($url);
+    }
+
+    public function getAllUrlUser($userId)
+    {
+        return $this->mainRepository->getAllUrlUser($userId);
     }
 
     public function getTitleUrl($url)
