@@ -11,9 +11,9 @@ class Url extends Model
     use HasFactory;
     protected $fillable = [
         'slug',
-        'soriginal_url',
+        'original_url',
         'title',
-        'used_id',
+        'user_id',
     ];
     public function stats (): Relation
     {

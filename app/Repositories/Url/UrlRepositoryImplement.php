@@ -19,5 +19,13 @@ class UrlRepositoryImplement extends Eloquent implements UrlRepository{
         $this->model = $model;
     }
 
-    // Write something awesome :)
+    public function create($data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->model->where("slug", $slug)->first();
+    }
 }

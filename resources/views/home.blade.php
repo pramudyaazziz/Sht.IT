@@ -13,7 +13,11 @@
                     </form>
                 </div>
             @endif
-            <form class="bg-white p-3 url-shortener">
+            <form class="bg-white p-3 url-shortener" action="{{route('short.url')}}" method="POST">
+                @csrf
+                @error('url')
+                    <p class="text-center text-danger m-0 p-0 pb-3 py-2">{{ $message }}</p>
+                @enderror
                 <div class="mb-3">
                     <label class="form-label d-flex align-items-center">
                         <div class="double-link d-flex align-items-center me-3">
@@ -21,24 +25,31 @@
                         </div>
                         Enter your long URL here
                     </label>
-                    <textarea class="form-control" rows="4" placeholder="Your long url" name="original_url"></textarea>
+                    <textarea class="form-control @error('original_url') is-invalid @enderror" rows="4" placeholder="Your long url" name="original_url">{{old('original_url')}}</textarea>
+                    @error('original_url')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label d-flex align-items-center">
                         <div class="single-link d-flex align-items-center me-3">
                             <img class="img-fluid" src="{{asset('image/single-link.png')}}" alt="">
                         </div>
-                        Customize your link</label>
+                        Customize your link
+                    </label>
                     <div class="input-group">
                         <span class="input-group-text">{{env('APP_DOMAIN')}}/</span>
-                        <input type="text" class="form-control" placeholder="alias" name="slug">
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" placeholder="alias" name="slug" value="{{old('slug')}}">
+                        @error('slug')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-check mb-3">
                     <label class="form-check-label" for="random_alias">
                         Make random alias
                     </label>
-                    <input class="form-check-input" type="checkbox" name="random_alias" id="random_alias">
+                    <input class="form-check-input" type="checkbox" value="true" name="random_alias" id="random_alias">
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                     @if ($user)
@@ -137,8 +148,6 @@
         randomAliasCheckbox.addEventListener('change', function() {
             slugInput.disabled = this.checked;
             if (this.checked) {
-                slugInput.value = 'Random alias';
-            } else {
                 slugInput.value = '';
             }
         });

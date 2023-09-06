@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UrlRequest;
 use App\Models\Url;
+use App\Services\Url\UrlService;
 use Illuminate\Http\Request;
 
 class UrlController extends Controller
 {
+    protected $urlService;
+
+    public function __construct(UrlService $urlService)
+    {
+        $this->urlService = $urlService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -26,9 +35,15 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UrlRequest $request)
     {
-        //
+        $url = $this->urlService->create($request->except('_token'));
+        
+        if ($url) {
+            return redirect()->back()->with('result', $url->slug);
+        }
+
+        return redirect()->back()->withErrors(['url' => 'Failed to create shortened url']);
     }
 
     /**

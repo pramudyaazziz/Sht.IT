@@ -6,5 +6,6 @@ use LaravelEasyRepository\BaseService;
 
 interface UrlService extends BaseService{
 
-    // Write something awesome :)
+    public function create($data);
+    public function getTitleUrl($url);
 }

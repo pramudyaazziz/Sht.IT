@@ -6,5 +6,6 @@ use LaravelEasyRepository\Repository;
 
 interface UrlRepository extends Repository{
 
-    // Write something awesome :)
+    public function create($data);
+    public function findBySlug($slug);
 }
