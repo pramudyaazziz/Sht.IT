@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlRequest;
 use App\Models\Url;
+use App\Services\Stats\StatsService;
 use App\Services\Url\UrlService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Redirect;
 class UrlController extends Controller
 {
     protected $urlService;
+    protected $statsService;
 
-    public function __construct(UrlService $urlService)
+    public function __construct(UrlService $urlService, StatsService $statsService)
     {
         $this->urlService = $urlService;
+        $this->statsService = $statsService;
     }
 
     /**
@@ -92,6 +95,7 @@ class UrlController extends Controller
         $url = $this->urlService->getUrl($slug);
 
         if ($url) {
+            $this->statsService->incrementClicks($url->id);
             return Redirect::to($url->original_url);
         }
 

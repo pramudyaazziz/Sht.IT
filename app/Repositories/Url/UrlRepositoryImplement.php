@@ -21,7 +21,12 @@ class UrlRepositoryImplement extends Eloquent implements UrlRepository{
 
     public function create($data)
     {
-        return $this->model->create($data);
+        $url = $this->model->create($data);
+        $url->stats()->create([
+            'date' => now()->format('Y-m-d'),
+            'clicks' => 0
+        ]);
+        return $url;
     }
 
     public function findBySlug($slug)
