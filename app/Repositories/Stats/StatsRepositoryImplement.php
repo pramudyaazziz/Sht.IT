@@ -21,11 +21,21 @@ class StatsRepositoryImplement extends Eloquent implements StatsRepository{
 
     public function incrementClicks($urlId)
     {
+        // get stat record
         $stat = $this->model->where('url_id', $urlId)->where('date', now()->format('Y-m-d'))->first();
+
+        // if stat record exist, update increment field clicks
         if($stat){
             return $stat->update(['clicks' => ++$stat->clicks]);
         }
 
-        return false;
+        // if stat did not exist, create record and make field clicks to 1
+        $stat = $this->model->create([
+            'url_id' => $urlId,
+            'date' => now()->format('Y-m-d'),
+            'clicks' => 1
+        ]);
+
+        return $stat;
     }
 }
