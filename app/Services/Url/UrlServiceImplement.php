@@ -57,10 +57,16 @@ class UrlServiceImplement extends Service implements UrlService{
     public function getTitleUrl($url)
     {
         $client = new Client();
-        $response = $client->get($url);
 
-        $html = $response->getBody()->getContents();
-        $title = preg_match("/<title>(.*?)<\/title>/i", $html, $matches) ? $matches[1] : 'Untitled';
+        try {
+            $response = $client->get($url);
+            $html = $response->getBody()->getContents();
+            $title = preg_match("/<title>(.*?)<\/title>/i", $html, $matches) ? $matches[1] : 'Untitled';
+        } catch (\Exception $e) {
+            $title = 'Untitled';
+        }
+
+
         return $title;
     }
 
