@@ -43,4 +43,9 @@ class UrlRepositoryImplement extends Eloquent implements UrlRepository{
             ];
         });
     }
+
+    public function findUrlBySlug($slug)
+    {
+        return $this->model->with('stats')->where('slug', $slug)->first();
+    }
 }

@@ -9,4 +9,5 @@ interface UrlService extends BaseService{
     public function create($data);
     public function getTitleUrl($url);
     public function getAllUrlUser($userId);
+    public function getUrl($slug);
 }

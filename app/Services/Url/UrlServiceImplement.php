@@ -75,4 +75,9 @@ class UrlServiceImplement extends Service implements UrlService{
         return $this->mainRepository->findBySlug($slug) === null;
     }
 
+    public function getUrl($slug)
+    {
+        return $this->mainRepository->findUrlBySlug($slug);
+    }
+
 }

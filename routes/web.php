@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/url/store', [UrlController::class, 'store'])->name('short.url');
+Route::get('/{slug}', [UrlController::class, 'redirect'])->name('redirect');
 
 // Route::get('/my-url', function () {
 //     return view('recent-url', ['title' => 'My URL']);
@@ -49,5 +50,5 @@ Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/my-url', UrlController::class)->except('create', 'store');
+    Route::resource('/url/my-url', UrlController::class)->except('create', 'store');
 });

@@ -8,6 +8,7 @@ use App\Services\Url\UrlService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UrlController extends Controller
 {
@@ -81,5 +82,19 @@ class UrlController extends Controller
     public function destroy(Url $url)
     {
         //
+    }
+
+    /**
+     * This method is used for redirect to original url
+     */
+    public function redirect($slug): RedirectResponse
+    {
+        $url = $this->urlService->getUrl($slug);
+
+        if ($url) {
+            return Redirect::to($url->original_url);
+        }
+
+        abort(404);
     }
 }
