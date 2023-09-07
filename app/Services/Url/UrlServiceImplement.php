@@ -2,6 +2,7 @@
 
 namespace App\Services\Url;
 
+use App\Repositories\Stats\StatsRepository;
 use LaravelEasyRepository\Service;
 use App\Repositories\Url\UrlRepository;
 use Illuminate\Support\Str;
@@ -49,6 +50,19 @@ class UrlServiceImplement extends Service implements UrlService{
         return $this->mainRepository->create($url);
     }
 
+    public function delete($slug)
+    {
+        $url = $this->mainRepository->findUrlBySlug($slug);
+        if ($url) {
+            $deleteStats = $url->stats()->delete();
+            if ($deleteStats) {
+                return $url->delete();
+            }
+         }
+
+        return false;
+    }
+
     public function getAllUrlUser($userId)
     {
         return $this->mainRepository->getAllUrlUser($userId);
@@ -72,7 +86,7 @@ class UrlServiceImplement extends Service implements UrlService{
 
     public function isSlugUnique($slug)
     {
-        return $this->mainRepository->findBySlug($slug) === null;
+        return $this->mainRepository->findUrlBySlug($slug) === null;
     }
 
     public function getUrl($slug)

@@ -18,7 +18,7 @@ class Url extends Model
     ];
     public function stats (): Relation
     {
-        return $this->hasMany(Stats::class);
+        return $this->hasMany(Stats::class)->orderBy('created_at', 'desc');
     }
     public function user (): Relation
     {

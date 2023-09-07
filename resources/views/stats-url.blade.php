@@ -1,40 +1,48 @@
+{{-- Import the carbon namespace to calculate the time difference between the time it was created and the current time --}}
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('layouts.index')
 @section('title') {{ $title }} @endsection
 @section('content')
 <div class="h-100 d-flex flex-column">
     <h3 class="text-center">Your stats {{config('app.name')}}-URL</h3>
     <div class="text-end">
-        <a href="{{route('my.url')}}" class="btn btn-secondary">Go back</a>
+        <a href="{{route('my-url.index')}}" class="btn btn-secondary">Go back</a>
     </div>
     <div class="flex-fill my-4">
         <div class="row p-3 py-0">
             <div class="col-md-6">
                 <div class="info-link">
                     <h6 class="title-url m-0 mb-1 d-flex align-items-center gap-3">
-                        Facebook
-                        <span class="badge bg-primary-tag">New</span>
+                        {{$url->title}}
+                        @if ($url->created_at->diffInMinutes(now()) < 30)
+                            <span class="badge bg-primary-tag">New</span>
+                        @endif
                     </h6>
                     <div>
-                        <a href="https://m.facebook.com/pramudya.azziz" target="_blank" class="original-url m-0 mb-1">
-                            https://m.facebook.com/pramudya.azziz
+                        <a href="{{$url->original_url}}" target="_blank" class="original-url m-0 mb-1">
+                            {{$url->original_url}}
                         </a>
                     </div>
                     <div class="d-flex gap-3">
-                        <a href="https://shtit.pramarda.my.id/fb" target="_blank" class="shorten-url m-0 mb-1">
-                            shtit.pramarda.my.id/fb
+                        <a href="https://{{env('APP_DOMAIN')}}/{{$url->slug}}" target="_blank" class="shorten-url m-0 mb-1">
+                            {{env('APP_DOMAIN')}}/{{$url->slug}}
                         </a>
-                        <a href="{{route('change.url')}}">
+                        <a href="{{route('my-url.edit', 3)}}">
                             <svg xmlns="http://www.w3.org/2000/svg" style="color: var(--secondary); width: 20px; height: 20px;" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 16l-1 4l4-1L19.586 7.414a2 2 0 0 0 0-2.828l-.172-.172a2 2 0 0 0-2.828 0L5 16ZM15 6l3 3m-5 11h8"/></svg>
                         </a>
                     </div>
                     <p class="created-url m-0 mb-1">
-                        3 hours ago
+                        {{$url->timeAgo}}
                     </p>
                 </div>
                 <div class="my-4">
-                    <h3>Total Clicks: 194</h3>
+                    <h3>Total Clicks: {{$clicks}}</h3>
                 </div>
-                <form class="action">
+                <form class="action" action="{{route('my-url.destroy', $url->slug)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
                     <button class="btn text-white" style="background-color: var(--primary);">Delete URL</button>
                 </form>
             </div>
@@ -43,22 +51,12 @@
                     <div class="col-md-8 card-url-stats h-100 p-3">
                         <h4 class="text-center text-muted">Stats</h4>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between py-2">
-                                <p class="m-0 text-secondary fw-medium">Today</p>
-                                <p class="m-0 fw-bold">75</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between py-2">
-                                <p class="m-0 text-secondary fw-medium">28 Aug 2023</p>
-                                <p class="m-0 fw-bold">103</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between py-2">
-                                <p class="m-0 text-secondary fw-medium">27 Aug 2023</p>
-                                <p class="m-0 fw-bold">75</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between py-2">
-                                <p class="m-0 text-secondary fw-medium">26 Aug 2023</p>
-                                <p class="m-0 fw-bold">75</p>
-                            </li>
+                            @foreach ($url->stats as $stat)
+                                <li class="list-group-item d-flex justify-content-between py-2">
+                                    <p class="m-0 text-secondary fw-medium">{{$stat->date == now()->format('Y-m-d') ? 'Today' : $stat->date}}</p>
+                                    <p class="m-0 fw-bold">{{$stat->clicks}}</p>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

@@ -7,4 +7,5 @@ use LaravelEasyRepository\BaseService;
 interface StatsService extends BaseService{
 
     public function incrementClicks($urlId);
+    public function getTotalClicks($urlId);
 }

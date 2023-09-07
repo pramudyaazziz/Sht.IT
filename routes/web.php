@@ -38,5 +38,8 @@ Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function () {
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::resource('/url/my-url', UrlController::class)->except('create', 'store');
+    Route::get('/url/my-url', [UrlController::class, 'index'])->name('my-url.index');
+    Route::get('/url/my-url/stats/{slug}', [UrlController::class, 'show'])->name('my-url.show');
+    Route::get('/url/my-url/stats/{slug}/edit', [UrlController::class, 'edit'])->name('my-url.edit');
+    Route::delete('/url/my-url/stats/{slug}', [UrlController::class, 'destroy'])->name('my-url.destroy');
 });

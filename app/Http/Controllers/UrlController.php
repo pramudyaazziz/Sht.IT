@@ -58,9 +58,21 @@ class UrlController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Url $url)
+    public function show($slug): View
     {
-        //
+        $url = $this->urlService->getUrl($slug);
+
+        if ($url) {
+            $clicks = $this->statsService->getTotalClicks($url->id);
+
+            return view('stats-url', [
+                'title' => 'Stats',
+                'url' => $url,
+                'clicks' => $clicks,
+            ]);
+        }
+
+        abort(404);
     }
 
     /**
@@ -82,9 +94,15 @@ class UrlController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Url $url)
+    public function destroy($slug): RedirectResponse
     {
-        //
+        $delete = $this->urlService->delete($slug);
+
+        if ($delete) {
+            return redirect()->route('my-url.index');
+        }
+
+        return redirect()->back()->withErrors(['url'=> 'Failed to delete url']);
     }
 
     /**

@@ -22,4 +22,9 @@ class StatsServiceImplement extends Service implements StatsService{
     {
         $this->mainRepository->incrementClicks($urlId);
     }
+
+    public function getTotalClicks($urlId)
+    {
+        return $this->mainRepository->getTotalClicks($urlId);
+    }
 }

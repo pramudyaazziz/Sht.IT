@@ -38,4 +38,9 @@ class StatsRepositoryImplement extends Eloquent implements StatsRepository{
 
         return $stat;
     }
+
+    public function getTotalClicks($urlId)
+    {
+        return $this->model->where('url_id', $urlId)->sum('clicks');
+    }
 }
