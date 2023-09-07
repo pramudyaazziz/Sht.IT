@@ -99,9 +99,11 @@ class UrlController extends Controller
         $delete = $this->urlService->delete($slug);
 
         if ($delete) {
+            toastr()->success('Url has been delete successfully!', ['timeOut' => 3000, 'positionClass' => 'toast-bottom-left']);
             return redirect()->route('my-url.index');
         }
 
+        toastr()->error('Url has failed to delete!', ['timeOut' => 3000, 'positionClass' => 'toast-bottom-left']);
         return redirect()->back()->withErrors(['url'=> 'Failed to delete url']);
     }
 
