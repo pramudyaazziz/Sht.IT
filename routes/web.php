@@ -23,18 +23,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/url/store', [UrlController::class, 'store'])->name('short.url');
 Route::get('/{slug}', [UrlController::class, 'redirect'])->name('redirect');
 
-// Route::get('/my-url', function () {
-//     return view('recent-url', ['title' => 'My URL']);
-// })->name('my.url');
-
-Route::get('/stats', function () {
-    return view('stats-url', ['title' => 'Stats URL']);
-})->name('stats');
-
-Route::get('/change-url', function () {
-    return view('change-url', ['title' => 'Change URL']);
-})->name('change.url');
-
 /**
  * Define route for auth process
  */
