@@ -41,5 +41,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/url/my-url', [UrlController::class, 'index'])->name('my-url.index');
     Route::get('/url/my-url/stats/{slug}', [UrlController::class, 'show'])->name('my-url.show');
     Route::get('/url/my-url/stats/{slug}/edit', [UrlController::class, 'edit'])->name('my-url.edit');
+    Route::put('/url/my-url/stats/{slug}', [UrlController::class, 'update'])->name('my-url.update');
     Route::delete('/url/my-url/stats/{slug}', [UrlController::class, 'destroy'])->name('my-url.destroy');
 });

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UrlRequest extends FormRequest
+class StoreUrlRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +23,7 @@ class UrlRequest extends FormRequest
     {
         return [
             'original_url' => ['required', 'string', 'active_url'],
-            'slug' => ['nullable', 'string', 'required_without:random_alias', Rule::unique('urls', 'slug')->ignore($this->route('url'))]
+            'slug' => ['nullable', 'string', 'required_without:random_alias', 'unique:urls,slug']
         ];
     }
 }

@@ -50,6 +50,17 @@ class UrlServiceImplement extends Service implements UrlService{
         return $this->mainRepository->create($url);
     }
 
+    public function update($data, $slug)
+    {
+        $data['slug'] = Str::slug($data['slug']);
+        $url = $this->mainRepository->findUrlBySlug($slug);
+        if($this->mainRepository->update($url, $data)) {
+            return $this->mainRepository->find($data['id']);
+        }
+
+        return false;
+    }
+
     public function delete($slug)
     {
         $url = $this->mainRepository->findUrlBySlug($slug);

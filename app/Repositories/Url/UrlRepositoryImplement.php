@@ -29,6 +29,11 @@ class UrlRepositoryImplement extends Eloquent implements UrlRepository{
         return $url;
     }
 
+    public function update($url, $data)
+    {
+        return $url->update($data);
+    }
+
     public function getAllUrlUser($userId)
     {
         $url = $this->model->where('user_id', $userId)->latest()->get();
